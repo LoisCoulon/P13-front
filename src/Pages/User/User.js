@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function User() {
   const { userId } = useParams();
@@ -21,7 +21,9 @@ function User() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <Link className="transaction-button" to={"../transactions"}>
+            View transactions
+          </Link>
         </div>
       </section>
       <section className="account">
@@ -31,7 +33,9 @@ function User() {
           <p className="account-amount-description">Available Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <Link className="transaction-button" to={"../transactions"}>
+            View transactions
+          </Link>
         </div>
       </section>
       <section className="account">
@@ -41,7 +45,9 @@ function User() {
           <p className="account-amount-description">Current Balance</p>
         </div>
         <div className="account-content-wrapper cta">
-          <button className="transaction-button">View transactions</button>
+          <Link className="transaction-button" to={"../transactions"}>
+            View transactions
+          </Link>
         </div>
       </section>
     </main>

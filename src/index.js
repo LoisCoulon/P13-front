@@ -7,6 +7,7 @@ import SignIn from "./Pages/SignIn/SignIn";
 import User from "./Pages/User/User";
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
+import Transactions from "./Pages/Transactions/Transactions";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/profile" element={<User />} />
+        <Route path="/transactions" element={<Transactions />} />
       </Routes>
       <Footer />
     </Router>
