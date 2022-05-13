@@ -1,4 +1,8 @@
+import { useParams } from "react-router-dom";
+
 function User() {
+  const { userId } = useParams();
+
   return (
     <main className="main bg-dark">
       <div className="header">

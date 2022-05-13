@@ -20,7 +20,7 @@ function SignIn() {
             <label htmlFor="remember-me">Remember me</label>
           </div>
           {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-          <Link to="/user" className="sign-in-button">
+          <Link to="/profile" className="sign-in-button">
             Sign In
           </Link>
           {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
