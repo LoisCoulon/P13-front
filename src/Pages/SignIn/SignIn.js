@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getLogin } from "../../services/service";
 import { saveToken } from "../../store";
 
@@ -30,7 +30,7 @@ function SignIn() {
         <h1>Sign In</h1>
         <form onSubmit={authentication}>
           <div className="input-wrapper">
-            <label htmlFor="email">Username</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               id="email"
@@ -55,11 +55,6 @@ function SignIn() {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-          {/* <Link to="/profile" className="sign-in-button">
-            Sign In
-          </Link> */}
-          {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
           <button type="submit" className="sign-in-button">
             Sign In
           </button>
