@@ -6,7 +6,7 @@ import { saveProfile } from "../../store";
 
 function User() {
   const userDatas = useSelector((state) => state.profile);
-  const [edit, setEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -23,16 +23,16 @@ function User() {
       } else {
         const response = await updateProfile(firstName.value, lastName.value);
         dispatch(saveProfile(response.data.body));
-        setEdit(false);
+        setIsEdit(false);
       }
     } catch (error) {
-      console.log(error);
+      alert("The following error occured : " + error);
     }
   }
 
   return (
     <main className="main bg-dark">
-      {edit ? (
+      {isEdit ? (
         <div className="header">
           <h1>Welcome back</h1>
           <div className="editor">
@@ -51,7 +51,7 @@ function User() {
             <button className="editor-button" onClick={save}>
               Save
             </button>
-            <button className="editor-button" onClick={() => setEdit(false)}>
+            <button className="editor-button" onClick={() => setIsEdit(false)}>
               Cancel
             </button>
           </div>
@@ -63,7 +63,7 @@ function User() {
             <br />
             {userDatas.firstName + " " + userDatas.lastName} !
           </h1>
-          <button className="edit-button" onClick={() => setEdit(true)}>
+          <button className="edit-button" onClick={() => setIsEdit(true)}>
             Edit Name
           </button>
         </div>

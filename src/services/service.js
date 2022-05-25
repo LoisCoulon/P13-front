@@ -1,17 +1,17 @@
 import axios from "axios";
-
+const baseUrl = "http://localhost:3001/api/v1/";
 // Get the connexion token
 export const getLogin = (email, password) => {
-  return axios.post("http://localhost:3001/api/v1/user/login", {
-    email: email,
-    password: password,
+  return axios.post(baseUrl + "user/login", {
+    email,
+    password,
   });
 };
 
 // Get the profile of the corresponding token
 export const getProfile = () => {
   return axios.post(
-    "http://localhost:3001/api/v1/user/profile",
+    baseUrl + "user/profile",
     {},
     {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -22,10 +22,10 @@ export const getProfile = () => {
 // Update the profile of the corresponding token
 export const updateProfile = (firstName, lastName) => {
   return axios.put(
-    "http://localhost:3001/api/v1/user/profile",
+    baseUrl + "user/profile",
     {
-      firstName: firstName,
-      lastName: lastName,
+      firstName,
+      lastName,
     },
     {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") },

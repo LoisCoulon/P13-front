@@ -15,6 +15,7 @@ export const saveProfile = (profile) => ({
   type: "saveProfile",
   payload: profile,
 });
+export const resetProfile = () => ({ type: "resetProfile" });
 
 function reducer(state = initialState, action) {
   if (action.type === "saveToken") {
@@ -34,6 +35,11 @@ function reducer(state = initialState, action) {
   if (action.type === "saveProfile") {
     return produce(state, (draft) => {
       draft.profile = action.payload;
+    });
+  }
+  if (action.type === "resetProfile") {
+    return produce(state, (draft) => {
+      draft.profile = "";
     });
   }
   return state;
