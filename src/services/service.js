@@ -1,6 +1,12 @@
 import axios from "axios";
 const baseUrl = "http://localhost:3001/api/v1/";
-// Get the connexion token
+
+/**
+ * Get the connexion token
+ * @param {string} email
+ * @param {string} password
+ * @returns
+ */
 export const getLogin = (email, password) => {
   return axios.post(baseUrl + "user/login", {
     email,
@@ -8,7 +14,10 @@ export const getLogin = (email, password) => {
   });
 };
 
-// Get the profile of the corresponding token
+/**
+ * Get the profile of the corresponding token
+ * @returns
+ */
 export const getProfile = () => {
   return axios.post(
     baseUrl + "user/profile",
@@ -19,7 +28,12 @@ export const getProfile = () => {
   );
 };
 
-// Update the profile of the corresponding token
+/**
+ * Update the profile of the corresponding token
+ * @param {string} firstName
+ * @param {string} lastName
+ * @returns
+ */
 export const updateProfile = (firstName, lastName) => {
   return axios.put(
     baseUrl + "user/profile",

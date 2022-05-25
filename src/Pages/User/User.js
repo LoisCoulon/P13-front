@@ -30,7 +30,7 @@ function User() {
     }
   }
 
-  return (
+  return userDatas.email ? (
     <main className="main bg-dark">
       {isEdit ? (
         <div className="header">
@@ -106,6 +106,12 @@ function User() {
         </div>
       </section>
     </main>
+  ) : (
+    <div className="forbidden">
+      <h1>
+        Access forbidden <br /> Please connect to your account before
+      </h1>
+    </div>
   );
 }
 export default User;
