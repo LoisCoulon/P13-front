@@ -3,11 +3,28 @@
   margin-bottom: 2rem;
 
   .edit-button {
-    border-color: #00bc77;
-    background-color: #00bc77;
+    border-color: $transaction-background;
+    background-color: $transaction-background;
     color: #fff;
     font-weight: bold;
     padding: 10px;
+  }
+
+  .editor {
+    display: flex;
+    justify-content: center;
+    input {
+      padding: 5px;
+      margin: 5px;
+      width: 15vw;
+    }
+    button {
+      padding: 5px;
+      margin: 5px;
+      width: 5vw;
+      border: $transaction-background 1px solid;
+      color: $transaction-background;
+    }
   }
 }
 
@@ -58,6 +75,8 @@
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  text-align: center;
+  text-decoration: none;
 }
 
 @media (min-width: 720px) {
