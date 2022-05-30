@@ -4,9 +4,7 @@ function Transaction(props) {
   const [isUp, setIsUp] = useState(false);
 
   function openClose() {
-    if (!isUp) {
-      setIsUp(true);
-    } else setIsUp(false);
+    setIsUp(!isUp);
   }
 
   function selectCategory() {

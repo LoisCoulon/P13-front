@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateProfile } from "../../services/service";
@@ -7,21 +7,24 @@ import { saveProfile } from "../../store";
 function User() {
   const userDatas = useSelector((state) => state.profile);
   const [isEdit, setIsEdit] = useState(false);
+  const firstName = useRef();
+  const lastName = useRef();
 
   const dispatch = useDispatch();
 
   async function save() {
     try {
-      const firstName = document.querySelector(".firstNameInput");
-      const lastName = document.querySelector(".lastNameInput");
-      if (firstName.value === "" && lastName.value !== "") {
+      if (!firstName.current.value && lastName.current.value) {
         alert("Veuillez renseigner votre prénom");
-      } else if (firstName.value !== "" && lastName.value === "") {
+      } else if (firstName.current.value && !lastName.current.value) {
         alert("Veuillez renseigner votre nom");
-      } else if (firstName.value === "" && lastName.value === "") {
+      } else if (!firstName.current.value && !lastName.current.value) {
         alert("Veuillez renseigner votre prénom et votre nom");
       } else {
-        const response = await updateProfile(firstName.value, lastName.value);
+        const response = await updateProfile(
+          firstName.current.value,
+          lastName.current.value
+        );
         dispatch(saveProfile(response.data.body));
         setIsEdit(false);
       }
@@ -40,11 +43,13 @@ function User() {
               type="text"
               placeholder={userDatas.firstName}
               className="firstNameInput"
+              ref={firstName}
             />
             <input
               type="text"
               placeholder={userDatas.lastName}
               className="lastNameInput"
+              ref={lastName}
             />
           </div>
           <div className="editor">
