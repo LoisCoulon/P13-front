@@ -15,8 +15,7 @@ function SignIn() {
     event.preventDefault();
     try {
       const response = await getLogin(email, password);
-      const token = response.data.body.token;
-      dispatch(saveToken(token));
+      dispatch(saveToken(response));
       navigate("/profile");
     } catch (error) {
       alert("Authentification error : " + error);

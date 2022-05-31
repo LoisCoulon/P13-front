@@ -14,8 +14,7 @@ function Nav() {
   useEffect(() => {
     async function getUserDatas() {
       const response = await getProfile();
-      const userDatas = response.data.body;
-      dispatch(saveProfile(userDatas));
+      dispatch(saveProfile(response));
     }
     if (token) {
       getUserDatas();

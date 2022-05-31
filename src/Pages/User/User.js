@@ -25,7 +25,7 @@ function User() {
           firstName.current.value,
           lastName.current.value
         );
-        dispatch(saveProfile(response.data.body));
+        dispatch(saveProfile(response));
         setIsEdit(false);
       }
     } catch (error) {
