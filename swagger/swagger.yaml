@@ -9,13 +9,13 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /user/transactions:
+  /user/{userId}/transactions:
     get:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Transaction API
+      summary: Get transactions API
       description: API for fetching transactions of the month
       parameters:
         - in: header
@@ -23,6 +23,16 @@ paths:
           type: string
           description: Attach Bearer JWT token
           required: true
+        - in: path
+          name: userId
+          type: string
+          description: Attach user ID to URL
+          required: true
+        - in: query
+          name: month
+          type: string
+          description: Name of the Month when the transaction has been created
+          required: false
       produces:
         - application/json
       responses:
@@ -34,14 +44,13 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/transaction/{id}:
     post:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Transaction API
-      description: API for fetching a specific transaction details
+      summary: Create Transaction API
+      description: API for creating a transaction
       parameters:
         - in: header
           name: Authorization
@@ -49,27 +58,34 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: id
+          name: userId
           type: string
-          description: Attach transaction ID to URL
+          description: Attach user ID to URL
           required: true
+        - in: body
+          name: body
+          description: Create transaction
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionBody"
       produces:
         - application/json
       responses:
         "200":
-          description: Successfully fetched transaction details
+          description: Transaction successfully created
           schema:
-            $ref: "#/definitions/TransactionResponse"
+            $ref: "#/definitions/TransactionAllResponse"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
+  /user/{userId}/transactions/{transactionId}:
     put:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Transaction API
+      summary: Update Transaction API
       description: API for updating a specific transaction details
       parameters:
         - in: header
@@ -78,7 +94,12 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: id
+          name: userId
+          type: string
+          description: Attach user ID to URL
+          required: true
+        - in: path
+          name: transactionId
           type: string
           description: Attach transaction ID to URL
           required: true
@@ -104,7 +125,7 @@ paths:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Transaction API
+      summary: Delete transaction API
       description: API for deleting a specific transaction details
       parameters:
         - in: header
@@ -113,7 +134,12 @@ paths:
           description: Attach Bearer JWT token
           required: true
         - in: path
-          name: id
+          name: userId
+          type: string
+          description: Attach user ID to URL
+          required: true
+        - in: path
+          name: transactionId
           type: string
           description: Attach transaction ID to URL
           required: true
@@ -122,8 +148,6 @@ paths:
       responses:
         "200":
           description: Transaction details deleted successfully
-          schema:
-            $ref: "#/definitions/TransactionUpdateResponse"
         "400":
           description: Invalid Fields
         "500":
@@ -137,9 +161,6 @@ securityDefinitions:
 definitions:
   Transaction:
     properties:
-      type:
-        type: string
-        description: transaction type
       category:
         type: string
         description: transaction category
@@ -173,6 +194,15 @@ definitions:
             balance:
               type: number
               description: balance amount
+            type:
+              type: string
+              description: Transaction's type
+            category:
+              type: string
+              description: Transaction's category
+            notes:
+              type: string
+              description: Transaction's notes
   TransactionResponse:
     type: object
     properties:
@@ -183,6 +213,28 @@ definitions:
       body:
         type: object
         properties:
+          type:
+            type: string
+          category:
+            type: string
+          notes:
+            type: string
+  TransactionBody:
+    type: object
+    properties:
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          date:
+            type: string
+          description:
+            type: string
+          amount:
+            type: number
+          balance:
+            type: number
           type:
             type: string
           category:
@@ -216,3 +268,12 @@ definitions:
             balance:
               type: number
               description: balance amount
+            type:
+              type: string
+              description: Transaction's type
+            category:
+              type: string
+              description: Transaction's category
+            notes:
+              type: string
+              description: Transaction's notes

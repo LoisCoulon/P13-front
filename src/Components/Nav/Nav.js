@@ -1,28 +1,31 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/argentBankLogo.png";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteToken, saveProfile } from "../../store";
+import { deleteToken, resetProfile, saveProfile } from "../../store";
 import { getProfile } from "../../services/service";
 
 function Nav() {
   const token = useSelector((state) => state.token);
   const userDatas = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     async function getUserDatas() {
       const response = await getProfile();
-      const userDatas = response.data.body;
-      dispatch(saveProfile(userDatas));
+      dispatch(saveProfile(response));
     }
     if (token) {
       getUserDatas();
+      setIsLogged(true);
     }
   }, [dispatch, token]);
 
   function signOut() {
     dispatch(deleteToken());
+    dispatch(resetProfile());
+    setIsLogged(false);
   }
 
   return (
@@ -36,7 +39,7 @@ function Nav() {
           />
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
-        {token ? (
+        {isLogged ? (
           <div>
             <Link className="main-nav-item" to="/profile">
               <i className="fa fa-user-circle"></i>

@@ -10,18 +10,6 @@
   margin: 0 auto -10px auto;
 }
 
-.downArrow_no {
-  display: none;
-}
-
-.upArrow {
-  display: none;
-}
-
-.upArrow_yes {
-  display: block;
-}
-
 #arrow {
   width: 5%;
 }
@@ -45,28 +33,17 @@
 }
 
 .moreInfo {
-  display: none;
-  background: #12002b;
-  width: 90%;
-  max-height: 0px;
-  overflow: hidden;
-  color: black;
-  text-align: left;
-  padding: 5px 0;
-  margin: 0 auto;
-
-  transition: max-height 1s;
-}
-
-.moreInfo_open {
   display: block;
   background: white;
-  max-height: 150px;
-  overflow: hidden;
   color: black;
   text-align: left;
   padding: 5px 0 5px 10%;
   margin: 0 auto;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  width: 90%;
+  overflow: hidden;
+  color: black;
+  animation-name: collapse;
+  animation-duration: 600ms;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateProfile } from "../../services/service";
@@ -6,33 +6,36 @@ import { saveProfile } from "../../store";
 
 function User() {
   const userDatas = useSelector((state) => state.profile);
-  const [edit, setEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const firstName = useRef();
+  const lastName = useRef();
 
   const dispatch = useDispatch();
 
   async function save() {
     try {
-      const firstName = document.querySelector(".firstNameInput");
-      const lastName = document.querySelector(".lastNameInput");
-      if (firstName.value === "" && lastName.value !== "") {
+      if (!firstName.current.value && lastName.current.value) {
         alert("Veuillez renseigner votre prénom");
-      } else if (firstName.value !== "" && lastName.value === "") {
+      } else if (firstName.current.value && !lastName.current.value) {
         alert("Veuillez renseigner votre nom");
-      } else if (firstName.value === "" && lastName.value === "") {
+      } else if (!firstName.current.value && !lastName.current.value) {
         alert("Veuillez renseigner votre prénom et votre nom");
       } else {
-        const response = await updateProfile(firstName.value, lastName.value);
-        dispatch(saveProfile(response.data.body));
-        setEdit(false);
+        const response = await updateProfile(
+          firstName.current.value,
+          lastName.current.value
+        );
+        dispatch(saveProfile(response));
+        setIsEdit(false);
       }
     } catch (error) {
-      console.log(error);
+      alert("The following error occured : " + error);
     }
   }
 
-  return (
+  return userDatas.email ? (
     <main className="main bg-dark">
-      {edit ? (
+      {isEdit ? (
         <div className="header">
           <h1>Welcome back</h1>
           <div className="editor">
@@ -40,18 +43,20 @@ function User() {
               type="text"
               placeholder={userDatas.firstName}
               className="firstNameInput"
+              ref={firstName}
             />
             <input
               type="text"
               placeholder={userDatas.lastName}
               className="lastNameInput"
+              ref={lastName}
             />
           </div>
           <div className="editor">
             <button className="editor-button" onClick={save}>
               Save
             </button>
-            <button className="editor-button" onClick={() => setEdit(false)}>
+            <button className="editor-button" onClick={() => setIsEdit(false)}>
               Cancel
             </button>
           </div>
@@ -63,7 +68,7 @@ function User() {
             <br />
             {userDatas.firstName + " " + userDatas.lastName} !
           </h1>
-          <button className="edit-button" onClick={() => setEdit(true)}>
+          <button className="edit-button" onClick={() => setIsEdit(true)}>
             Edit Name
           </button>
         </div>
@@ -106,6 +111,12 @@ function User() {
         </div>
       </section>
     </main>
+  ) : (
+    <div className="forbidden">
+      <h1>
+        Access forbidden <br /> Please connect to your account before
+      </h1>
+    </div>
   );
 }
 export default User;

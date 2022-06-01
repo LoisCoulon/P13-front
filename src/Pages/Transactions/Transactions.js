@@ -9,7 +9,7 @@ function Transactions() {
         amount="$2,082.79"
         amountDescr="Available Balance"
       />
-      <main className="main bg-dark">
+      <main className="main bg-dark trans">
         <div className="dataHead">
           <div id="arrow" className="dataLineItem"></div>
           <div id="date" className="dataLineItem">

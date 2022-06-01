@@ -15,16 +15,15 @@ function SignIn() {
     event.preventDefault();
     try {
       const response = await getLogin(email, password);
-      const token = response.data.body.token;
-      dispatch(saveToken(token));
+      dispatch(saveToken(response));
       navigate("/profile");
     } catch (error) {
-      console.log(error);
+      alert("Authentification error : " + error);
     }
   }
 
   return (
-    <main className="main bg-dark">
+    <main className="main bg-dark login">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>

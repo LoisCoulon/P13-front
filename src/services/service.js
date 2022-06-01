@@ -1,34 +1,54 @@
 import axios from "axios";
+const baseUrl = "http://localhost:3001/api/v1/";
 
-// Get the connexion token
+/**
+ * Get the connexion token
+ * @param {string} email
+ * @param {string} password
+ * @returns
+ */
 export const getLogin = (email, password) => {
-  return axios.post("http://localhost:3001/api/v1/user/login", {
-    email: email,
-    password: password,
-  });
+  return axios
+    .post(baseUrl + "user/login", {
+      email,
+      password,
+    })
+    .then((response) => response.data.body.token);
 };
 
-// Get the profile of the corresponding token
+/**
+ * Get the profile of the corresponding token
+ * @returns
+ */
 export const getProfile = () => {
-  return axios.post(
-    "http://localhost:3001/api/v1/user/profile",
-    {},
-    {
-      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-    }
-  );
+  return axios
+    .post(
+      baseUrl + "user/profile",
+      {},
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }
+    )
+    .then((response) => response.data.body);
 };
 
-// Update the profile of the corresponding token
+/**
+ * Update the profile of the corresponding token
+ * @param {string} firstName
+ * @param {string} lastName
+ * @returns
+ */
 export const updateProfile = (firstName, lastName) => {
-  return axios.put(
-    "http://localhost:3001/api/v1/user/profile",
-    {
-      firstName: firstName,
-      lastName: lastName,
-    },
-    {
-      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-    }
-  );
+  return axios
+    .put(
+      baseUrl + "user/profile",
+      {
+        firstName,
+        lastName,
+      },
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }
+    )
+    .then((response) => response.data.body);
 };
